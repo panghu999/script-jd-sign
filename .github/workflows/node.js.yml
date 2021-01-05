@@ -18,4 +18,4 @@ jobs:
         node-version: 12.x
       env:
         COOKIE: ${{ secrets.COOKIE }}
-    - run: npm ci && node index.js $COOKIE
+    - run: npm ci && node index.js ${COOKIE}
