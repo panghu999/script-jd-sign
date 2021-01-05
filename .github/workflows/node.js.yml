@@ -1,21 +1,32 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+  
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: script-jd-sign
+name: schedule-jd
 
 on:
   push:
-    branches: [ main ]
-
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: build project
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12
+      - run: npm ci
+
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+      - name: Run Project
         env:
           COOKIE: ${{ secrets.COOKIE }}
-      - run: npm ci && node index.js "${COOKIE}"
+        run: npm ci && node index.js "${COOKIE}"
