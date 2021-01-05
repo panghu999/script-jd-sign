@@ -30,4 +30,4 @@ jobs:
           registry-url: https://npm.pkg.github.com/
         env:
           COOKIE: ${{ secrets.COOKIE }}
-        run: node index.js "${COOKIE}"
+      - run: node index.js "${COOKIE}"
