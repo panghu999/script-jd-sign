@@ -8,14 +8,14 @@ on:
     branches: [ main ]
 
 jobs:
-  build-project:
-    name: build project
+  build:
     runs-on: ubuntu-latest
+    name: build project
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-      env:
-        COOKIE: ${{ secrets.COOKIE }}
-    - run: npm ci && node index.js ${COOKIE}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+        env:
+          COOKIE: ${{ secrets.COOKIE }}
+      - run: npm ci && node index.js "${COOKIE}"
