@@ -31,4 +31,4 @@ jobs:
       - name: Run Project
         env:
           COOKIE: ${{ secrets.COOKIE }}
-        run: node index.js "${COOKIE}"
+        run: npm i && node index.js "${COOKIE}"
