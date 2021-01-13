@@ -12,23 +12,14 @@ on:
     - cron: "11 1 * * *"
 
 jobs:
-  build-project:
+  run-project:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
-      - run: npm ci
-
-  send-project:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
+          node-version: 12.x
       - name: Run Project
         env:
           COOKIE: ${{ secrets.COOKIE }}
-        run: npm i && node index.js "${COOKIE}"
+        run: npm ci && node index.js "${COOKIE}"
